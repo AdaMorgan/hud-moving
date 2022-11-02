@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "hud-moving",
+  "version": "1.0",
+
+  "name": "Hud Moving",
+  "authors": [
+    "Ada Morgan"
+  ],
+
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "core.Client"
+    ]
+  },
+
+  "mixins": [
+    "modid.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.12.12",
+    "fabric": "*",
+    "minecraft": ">=1.14",
+    "java": ">=17"
+  }
+}
