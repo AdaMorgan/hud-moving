@@ -14,21 +14,21 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPlayNetworkHandler.class)
-public class ClientPlayNetworkHandlerMixin {
-    @Shadow private ClientWorld world;
+public abstract class ClientPlayNetworkHandlerMixin {
+    @Shadow public abstract ClientWorld getWorld();
 
     @Inject(method = "onWorldEvent", at = @At(value = "HEAD"))
     public void onWorldEvent(WorldEventS2CPacket packet, CallbackInfo ci) {
-        if (world.isClient() && packet.getEventId() == WorldEvents.TRAVEL_THROUGH_PORTAL) {
+        if (this.getWorld().isClient() && packet.getEventId() == WorldEvents.TRAVEL_THROUGH_PORTAL) {
             RenderHud.alpha = 0f;
 
-            if (world.getRegistryKey() == World.OVERWORLD)
+            if (this.getWorld().getRegistryKey() == World.OVERWORLD)
                 RenderHud.identifier = new Identifier("textures/hud/overworld.png");
 
-            if (world.getRegistryKey() == World.END)
+            if (this.getWorld().getRegistryKey() == World.END)
                 RenderHud.identifier = new Identifier("textures/hud/end.png");
 
-            if (world.getRegistryKey() == World.NETHER)
+            if (this.getWorld().getRegistryKey() == World.NETHER)
                 RenderHud.identifier = new Identifier("textures/hud/nether.png");
 
             RenderHud.state = true;
